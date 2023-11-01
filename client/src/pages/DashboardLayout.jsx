@@ -5,17 +5,19 @@ import { createContext, useContext, useState } from 'react';
 
 const DashboardContext = createContext();
 
-const DashboardLayout = () => {
+const DashboardLayout = ({ checkDefaultTheme }) => {
   //temp
   const user = {
     name: 'Anna',
   };
 
   const [showSidebar, setShowSidebar] = useState(false);
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
+  const [isDarkTheme, setIsDarkTheme] = useState(checkDefaultTheme());
 
   const toggleDarkTheme = () => {
-    console.log('toggle dark theme');
+    const newDarkTheme = !isDarkTheme;
+    setIsDarkTheme(newDarkTheme);
+    localStorage.setItem('darkTheme', newDarkTheme);
   };
 
   const toggleSidebar = () => {
