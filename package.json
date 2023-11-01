@@ -1,0 +1,24 @@
+{
+  "name": "mern-jobboard-practice-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "setup-project": "npm i && cd client && npm i"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.52.0",
+    "nanoid": "^5.0.2",
+    "nodemon": "^3.0.1"
+  }
+}
