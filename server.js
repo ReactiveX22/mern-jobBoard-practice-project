@@ -9,6 +9,7 @@ import mongoose from 'mongoose';
 
 // Routers
 import jobRouter from './routes/jobRouter.js';
+import userRouter from './routes/userRouter.js';
 
 // Middlewares
 import errorHandlerMiddleware from './middleware/errorHandlerMiddleware.js';
@@ -21,6 +22,7 @@ app.use(express.json());
 
 //Routes
 app.use('/api/v1/jobs', jobRouter);
+app.use('/api/v1/users', userRouter);
 
 // Not Found Setup
 app.use('*', (req, res) => {
