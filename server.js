@@ -13,15 +13,18 @@ import authRouter from './routes/authRouter.js';
 
 // Middlewares
 import errorHandlerMiddleware from './middleware/errorHandlerMiddleware.js';
+import { authenticateUser } from './middleware/authMiddleware.js';
+import cookieParser from 'cookie-parser';
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
+app.use(cookieParser());
 app.use(express.json());
 
 //Routes
-app.use('/api/v1/jobs', jobRouter);
+app.use('/api/v1/jobs', authenticateUser, jobRouter);
 app.use('/api/v1/auth', authRouter);
 
 // Not Found Setup
