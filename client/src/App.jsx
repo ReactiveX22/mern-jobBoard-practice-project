@@ -1,4 +1,5 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+
 import {
   HomeLayout,
   Landing,
@@ -12,6 +13,8 @@ import {
   Stats,
   Profile,
 } from './pages';
+
+import { action as registerAction } from './pages/Register';
 
 const checkDefaultTheme = () => {
   const isDarkTheme = localStorage.getItem('darkTheme') === 'true';
@@ -34,6 +37,7 @@ const router = createBrowserRouter([
       {
         path: 'register',
         element: <Register />,
+        action: registerAction,
       },
       {
         path: 'login',
@@ -41,7 +45,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'dashboard',
-        element: <DashboardLayout checkDefaultTheme={checkDefaultTheme} />,
+        element: <DashboardLayout checkDefaultTheme={isDarkThemeEnabled} />,
         children: [
           {
             index: true,
