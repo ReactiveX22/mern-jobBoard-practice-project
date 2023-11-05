@@ -1,12 +1,13 @@
 import Wrapper from '../assets/wrappers/Navbar';
 import { FaAlignLeft } from 'react-icons/fa';
 import Logo from './Logo';
-import { useDashboardContext } from '../pages/DashboardLayout';
+import { DashboardContext } from '../pages/DashboardLayout';
 import LogoutContainer from './LogoutContainer';
 import ThemeToggle from './ThemeToggle';
+import { useContext } from 'react';
 
 const Navbar = () => {
-  const { toggleSidebar } = useDashboardContext();
+  const { toggleSidebar } = useContext(DashboardContext);
   return (
     <Wrapper>
       <div className="nav-center">

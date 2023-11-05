@@ -1,10 +1,11 @@
 import Wrapper from '../assets/wrappers/BigSidebar';
 import Logo from './Logo';
-import { useDashboardContext } from '../pages/DashboardLayout';
+import { DashboardContext } from '../pages/DashboardLayout';
 import NavLinks from './NavLinks';
+import { useContext } from 'react';
 
 const BigSidebar = () => {
-  const { showSidebar, toggleSidebar } = useDashboardContext();
+  const { showSidebar } = useContext(DashboardContext);
 
   return (
     <Wrapper>
@@ -14,9 +15,6 @@ const BigSidebar = () => {
         }
       >
         <div className="content">
-          <button type="button" className="close-btn" onClick={toggleSidebar}>
-            {/* <FaTimes /> */}
-          </button>
           <header>
             <Logo />
           </header>

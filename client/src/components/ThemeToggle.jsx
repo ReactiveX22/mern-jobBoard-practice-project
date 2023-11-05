@@ -1,13 +1,18 @@
-import { BsFillSunFill, BsFillMoonFill } from 'react-icons/bs';
+import { BsFillSunFill, BsMoonFill } from 'react-icons/bs';
 import Wrapper from '../assets/wrappers/ThemeToggle';
-import { useDashboardContext } from '../pages/DashboardLayout';
+import { DashboardContext } from '../pages/DashboardLayout';
+import { useContext } from 'react';
 
 const ThemeToggle = () => {
-  const { isDarkTheme, toggleDarkTheme } = useDashboardContext();
+  const { isDarkTheme, toggleDarkTheme } = useContext(DashboardContext);
 
   return (
     <Wrapper onClick={toggleDarkTheme}>
-      {isDarkTheme ? <BsFillSunFill /> : <BsFillMoonFill />}
+      {isDarkTheme ? (
+        <BsFillSunFill className="toggle-icon" />
+      ) : (
+        <BsMoonFill className="toggle-icon" />
+      )}
     </Wrapper>
   );
 };
