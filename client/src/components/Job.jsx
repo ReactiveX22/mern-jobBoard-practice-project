@@ -6,7 +6,6 @@ day.extend(advancedFormat);
 
 import Wrapper from '../assets/wrappers/Job';
 import JobInfo from './JobInfo';
-import { format } from 'morgan';
 
 const Job = ({
   _id,
@@ -38,7 +37,7 @@ const Job = ({
           <Link to={`./edit-job/${_id}`} className="btn edit-btn">
             Edit
           </Link>
-          <Form method="delete" action="">
+          <Form method="post" action={`.../delete-job/${_id}`}>
             <button type="submit" className="btn delete-btn">
               Delete
             </button>
