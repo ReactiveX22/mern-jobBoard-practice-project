@@ -1,5 +1,7 @@
 import Job from '../models/JobModel.js';
 import { StatusCodes } from 'http-status-codes';
+import mongoose from 'mongoose';
+import dayjs from 'dayjs';
 
 // Get All Jobs
 export const getAllJobs = async (req, res) => {
@@ -32,4 +34,30 @@ export const updateJob = async (req, res) => {
 export const deleteJob = async (req, res) => {
   await Job.findByIdAndDelete(req.params.id);
   res.status(StatusCodes.OK).json({ msg: 'Job deleted' });
+};
+
+// Stats
+export const showStats = async (req, res) => {
+  const defaultStats = {
+    pending: 0,
+    interview: 0,
+    declined: 0,
+  };
+
+  let monthlyApplications = [
+    {
+      date: 'Nov 26',
+      count: 12,
+    },
+    {
+      date: 'Dec 26',
+      count: 12,
+    },
+    {
+      date: 'Jan 26',
+      count: 1,
+    },
+  ];
+
+  res.status(StatusCodes.OK).json({ defaultStats, monthlyApplications });
 };
