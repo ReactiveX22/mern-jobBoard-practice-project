@@ -38,10 +38,21 @@ export const deleteJob = async (req, res) => {
 
 // Stats
 export const showStats = async (req, res) => {
+  let stats = await Job.aggregate([
+    { $match: { createdBy: new mongoose.Types.ObjectId(req.user.userId) } },
+    { $group: { _id: '$jobStatus', count: { $sum: 1 } } },
+  ]);
+
+  stats = stats.reduce((acc, curr) => {
+    const { _id: title, count } = curr;
+    acc[title] = count;
+    return acc;
+  });
+
   const defaultStats = {
-    pending: 0,
-    interview: 0,
-    declined: 0,
+    pending: stats.pending || 0,
+    interview: stats.interview || 0,
+    declined: stats.declined || 0,
   };
 
   let monthlyApplications = [
