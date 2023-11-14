@@ -47,7 +47,7 @@ export const showStats = async (req, res) => {
     const { _id: title, count } = curr;
     acc[title] = count;
     return acc;
-  });
+  }, {});
 
   const defaultStats = {
     pending: stats.pending || 0,
@@ -55,20 +55,33 @@ export const showStats = async (req, res) => {
     declined: stats.declined || 0,
   };
 
-  let monthlyApplications = [
+  let monthlyApplications = await Job.aggregate([
+    { $match: { createdBy: new mongoose.Types.ObjectId(req.user.userId) } },
     {
-      date: 'Nov 26',
-      count: 12,
+      $group: {
+        _id: { year: { $year: '$createdAt' }, month: { $month: '$createdAt' } },
+        count: { $sum: 1 },
+      },
     },
-    {
-      date: 'Dec 26',
-      count: 12,
-    },
-    {
-      date: 'Jan 26',
-      count: 1,
-    },
-  ];
+    { $sort: { '_id.year': -1, '_id.month': -1 } },
+    { $limit: 6 },
+  ]);
+
+  monthlyApplications = monthlyApplications
+    .map((item) => {
+      const {
+        _id: { year, month },
+        count,
+      } = item;
+
+      const date = dayjs()
+        .month(month - 1)
+        .year(year)
+        .format('MMM YY');
+
+      return { date, count };
+    })
+    .reverse();
 
   res.status(StatusCodes.OK).json({ defaultStats, monthlyApplications });
 };
