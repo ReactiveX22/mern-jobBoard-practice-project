@@ -6,6 +6,7 @@ import { JobsContainer, SearchContainer } from '../components';
 import customFetch from '../utils/customFetch';
 
 export const loader = async () => {
+  console.log('Hello');
   try {
     const { data } = await customFetch.get('/jobs');
     return data;
