@@ -5,10 +5,13 @@ import { toast } from 'react-toastify';
 import { JobsContainer, SearchContainer } from '../components';
 import customFetch from '../utils/customFetch';
 
-export const loader = async () => {
-  console.log('Hello');
+export const loader = async ({ request }) => {
+  const params = Object.fromEntries([
+    ...new URL(request.url).searchParams.entries(),
+  ]);
+
   try {
-    const { data } = await customFetch.get('/jobs');
+    const { data } = await customFetch.get('/jobs', { params });
     return data;
   } catch (error) {
     toast.error(error?.response?.data?.msg);
